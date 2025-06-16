@@ -1,0 +1,78 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background-color: #eef5ff;
+  text-align: center;
+}
+
+h1 {
+  color: #1e3a8a;
+}
+
+.back-icon{
+  display: flex;
+  /* text-align: left; */
+  
+  
+}
+
+.filter-buttons {
+  margin-bottom: 20px;
+}
+
+.filter-buttons button {
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  background-color: #2563eb;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.filter-buttons button:hover {
+  background-color: #1e40af;
+  transform: scale(1.05);
+}
+
+#menu-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.menu-item {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(30, 64, 175, 0.2);
+  width: 200px;
+  padding: 15px;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 2px solid #c7d2fe;
+}
+
+.menu-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(30, 64, 175, 0.3);
+}
+
+.menu-item img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid #93c5fd;
+}
+
+.menu-item h3 {
+  margin: 10px 0 5px;
+  color: #1e3a8a;
+}
+
+.menu-item p {
+  color: #3b82f6;
+  font-weight: bold;
+}

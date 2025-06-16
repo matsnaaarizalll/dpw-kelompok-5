@@ -1,0 +1,59 @@
+/* Reset default */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* Fullscreen container */
+body, html {
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+}
+
+/* Main content */
+.container {
+  width: 100vw;
+  height: 100vh;
+  padding: 24px;
+  background-color: #fff;
+}
+
+/* Title */
+.container h2 {
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+/* Garis horizontal */
+.container hr {
+  border: none;
+  height: 1px;
+  background-color: #ddd;
+  margin-bottom: 20px;
+}
+
+/* Baris konten */
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Tombol */
+.btn-hapus {
+  background-color: #165bdb;
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+.btn-hapus:hover {
+  background-color: #1721b4;
+}

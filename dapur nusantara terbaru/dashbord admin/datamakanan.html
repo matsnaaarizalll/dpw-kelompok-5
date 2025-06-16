@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dapur Nusantara - Data Makanan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f7;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 256px;
+            background: #0051c2;
+            color: white;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 30px 20px;
+            border-bottom: 1px solid #64748b;
+        }
+
+        .sidebar h2 {
+            font-size: 20px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .sidebar-menu {
+            padding: 0;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            margin: 0;
+        }
+
+        .sidebar a {
+            color: #cbd5e1;
+            text-decoration: none;
+            display: block;
+            padding: 16px 20px;
+            font-size: 15px;
+            font-weight: 400;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar a:hover {
+            background: #64748b;
+            color: white;
+        }
+
+        .sidebar a.active {
+            background: #64748b;
+            color: white;
+            border-left-color: #3b82f6;
+        }
+
+        .main-content {
+            margin-left: 256px;
+            flex: 1;
+            background: #f5f5f7;
+            min-height: 100vh;
+        }
+
+        .content-header {
+            background: white;
+            padding: 24px 32px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .content-header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #0046b6;
+            margin: 0;
+        }
+
+        .content-body {
+            padding: 32px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+        }
+
+        .stat-card h3 {
+            font-size: 14px;
+            font-weight: 500;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .stat-card .number {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .actions-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .actions-bar h2 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .add-btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .add-btn:hover {
+            background: #2563eb;
+        }
+
+        .form-container {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+            display: none;
+        }
+
+        .form-container.show {
+            display: block;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 150px 120px 1fr auto;
+            gap: 16px;
+            align-items: end;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #0052d6;
+            margin-bottom: 6px;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .submit-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            height: fit-content;
+        }
+
+        .submit-btn:hover {
+            background: #059669;
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #f8fafc;
+            color: #374151;
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 14px;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        .delete-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .delete-btn:hover {
+            background: #dc2626;
+        }
+
+        .price {
+            font-weight: 600;
+            color: #059669;
+        }
+
+        .kategori-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .kategori-makanan-utama { 
+            background: #fef2f2; 
+            color: #dc2626; 
+        }
+        .kategori-minuman { 
+            background: #eff6ff; 
+            color: #2563eb; 
+        }
+        .kategori-dessert { 
+            background: #fefbeb; 
+            color: #d97706; 
+        }
+        .kategori-snack { 
+            background: #f3e8ff; 
+            color: #9333ea; 
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #004be0;
+        }
+
+        .empty-state h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #0044b1;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>Dapur Nusantara</h2>
+            </div>
+            <div class="sidebar-menu">
+                <ul>
+                    <li><a href="index.html">Dashboard</a></li>
+                    <li><a href="data makanan.html" class="active">Data Makanan</a></li>
+                    <li><a href="/pesanan saya/pesanan saya.html">Pesanan</a></li>
+                    <li><a href="/login/login.html">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="content-header">
+                <h1>Data Makanan</h1>
+            </div>
+
+            <div class="content-body">
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total Makanan</h3>
+                        <div class="number" id="total-makanan">8</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Makanan Utama</h3>
+                        <div class="number" id="total-utama">4</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Minuman</h3>
+                        <div class="number" id="total-minuman">2</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Snack & Dessert</h3>
+                        <div class="number" id="total-snack">2</div>
+                    </div>
+                </div>
+
+                <!-- Actions Bar -->
+                <div class="actions-bar">
+                    <h2>Daftar Makanan</h2>
+                    <button class="add-btn" onclick="toggleForm()">+ Tambah Makanan</button>
+                </div>
+
+                <!-- Form Container -->
+                <div class="form-container" id="form-container">
+                    <form id="makanan-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Nama Makanan</label>
+                                <input type="text" id="nama" placeholder="Masukkan nama makanan" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Kategori</label>
+                                <select id="kategori" required>
+                                    <option value="">Pilih</option>
+                                    <option value="Makanan Utama">Makanan Utama</option>
+                                    <option value="Minuman">Minuman</option>
+                                    <option value="Dessert">Dessert</option>
+                                    <option value="Snack">Snack</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Harga</label>
+                                <input type="number" id="harga" placeholder="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Deskripsi</label>
+                                <input type="text" id="deskripsi" placeholder="Deskripsi singkat">
+                            </div>
+                            <button type="submit" class="submit-btn">Simpan</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Table Container -->
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 60px;">No</th>
+                                <th>Nama Makanan</th>
+                                <th style="width: 140px;">Kategori</th>
+                                <th style="width: 120px;">Harga</th>
+                                <th>Deskripsi</th>
+                                <th style="width: 80px;">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="makanan-tbody">
+                            <!-- Data akan diisi oleh JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data makanan default
+        let makananList = [
+            {
+                id: 1,
+                nama: "Nasi Gudeg Yogya",
+                kategori: "Makanan Utama",
+                harga: 25000,
+                deskripsi: "Gudeg khas Yogyakarta dengan ayam dan telur"
+            },
+            
+        ];
+
+        let nextId = 9;
+
+        function toggleForm() {
+            const formContainer = document.getElementById('form-container');
+            formContainer.classList.toggle('show');
+        }
+
+        function formatRupiah(amount) {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(amount);
+        }
+
+        function getKategoriClass(kategori) {
+            return 'kategori-' + kategori.toLowerCase().replace(' ', '-');
+        }
+
+        function updateStats() {
+            const total = makananList.length;
+            const utama = makananList.filter(m => m.kategori === 'Makanan Utama').length;
+            const minuman = makananList.filter(m => m.kategori === 'Minuman').length;
+            const snackDessert = makananList.filter(m => m.kategori === 'Snack' || m.kategori === 'Dessert').length;
+
+            document.getElementById('total-makanan').textContent = total;
+            document.getElementById('total-utama').textContent = utama;
+            document.getElementById('total-minuman').textContent = minuman;
+            document.getElementById('total-snack').textContent = snackDessert;
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('makanan-tbody');
+            
+            if (makananList.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="empty-state">
+                            <h3>Belum ada data makanan</h3>
+                            <p>Klik tombol "Tambah Makanan" untuk menambah data baru</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = makananList.map((makanan, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td><strong>${makanan.nama}</strong></td>
+                    <td><span class="kategori-badge ${getKategoriClass(makanan.kategori)}">${makanan.kategori}</span></td>
+                    <td class="price">${formatRupiah(makanan.harga)}</td>
+                    <td>${makanan.deskripsi}</td>
+                    <td>
+                        <button class="delete-btn" onclick="deleteMakanan(${makanan.id})">
+                            Hapus
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function addMakanan(event) {
+            event.preventDefault();
+            
+            const nama = document.getElementById('nama').value;
+            const kategori = document.getElementById('kategori').value;
+            const harga = parseInt(document.getElementById('harga').value);
+            const deskripsi = document.getElementById('deskripsi').value;
+
+            const newMakanan = {
+                id: nextId++,
+                nama: nama,
+                kategori: kategori,
+                harga: harga,
+                deskripsi: deskripsi
+            };
+
+            makananList.push(newMakanan);
+            renderTable();
+            updateStats();
+            
+            // Reset form dan tutup
+            document.getElementById('makanan-form').reset();
+            toggleForm();
+            
+            alert('Makanan berhasil ditambahkan!');
+        }
+
+        function deleteMakanan(id) {
+            if (confirm('Apakah Anda yakin ingin menghapus makanan ini?')) {
+                makananList = makananList.filter(makanan => makanan.id !== id);
+                renderTable();
+                updateStats();
+                alert('Makanan berhasil dihapus!');
+            }
+        }
+
+        // Event listeners
+        document.getElementById('makanan-form').addEventListener('submit', addMakanan);
+
+        // Initial render
+        renderTable();
+        updateStats();
+    </script>
+</body>
+</html>

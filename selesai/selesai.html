@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pembayaran Berhasil</title>
+  <link rel="stylesheet" href="selesai.css">
+</head>
+<body>
+
+  <div class="status-box">
+    <div class="icon">✅</div>
+    <h1>Pembayaran Berhasil</h1>
+    <p>Terima kasih! Pesanan Anda sedang diproses.</p>
+
+    <div class="summary-box">
+      <p><strong>Produk:</strong> <span id="nama-produk"></span></p>
+      <p><strong>Jumlah:</strong> <span id="jumlah-produk"></span></p>
+      <p><strong>Harga Satuan:</strong> <span id="harga-produk"></span></p>
+      <p><strong>Ongkir:</strong> <span id="ongkir"></span></p>
+      <hr>
+      <p><strong>Total Bayar:</strong> <span id="total-bayar"></span></p>
+    </div>
+
+    <button class="beli-btn" onclick="location.href='/halaman utama/index.html'">Beli Lagi</button>
+  </div>
+
+  <script>
+    function formatRupiah(angka) {
+      return 'Rp' + angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+
+    const item = JSON.parse(localStorage.getItem('checkoutItem'));
+
+    if (item) {
+      const harga = parseInt(item.harga, 10);
+      const jumlah = parseInt(item.jumlah, 10);
+      const ongkir = 5000;
+      const total = harga * jumlah + ongkir;
+
+      document.getElementById('nama-produk').textContent = item.nama;
+      document.getElementById('jumlah-produk').textContent = jumlah;
+      document.getElementById('harga-produk').textContent = formatRupiah(harga);
+      document.getElementById('ongkir').textContent = formatRupiah(ongkir);
+      document.getElementById('total-bayar').textContent = formatRupiah(total);
+    } else {
+      alert("Data pesanan tidak ditemukan.");
+      location.href = "/halaman utama/index.html";
+    }
+  </script>
+
+</body>
+</html>

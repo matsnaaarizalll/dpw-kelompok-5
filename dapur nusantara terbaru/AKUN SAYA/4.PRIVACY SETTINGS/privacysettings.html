@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Settings</title>
+  <link rel="stylesheet" href="privacysettings.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Privacy Settings</h2>
+    <hr>
+    <div class="row">
+      <p>Minta Penghapusan Akun</p>
+      <button class="btn-hapus">Menghapus</button>
+    </div>
+  </div>
+
+  <script>
+  // Tangkap tombol berdasarkan class-nya
+  const tombolHapus = document.querySelector(".btn-hapus");
+
+  // Tambahkan event saat tombol diklik
+  tombolHapus.addEventListener("click", function () {
+    const konfirmasi = confirm("Apakah Anda yakin ingin menghapus akun Anda?");
+    
+    if (konfirmasi) {
+      // Simulasikan aksi menghapus akun
+      alert("Akun Anda telah berhasil dihapus!");
+      
+      // Di sini bisa ditambahkan logika penghapusan data (misal: AJAX atau redirect)
+    } else {
+      alert("Penghapusan dibatalkan.");
+    }
+  });
+</script>
+
+</body>
+</html>

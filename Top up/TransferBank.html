@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Metode Pembayaran Transfer Bank</title>
+  <link rel="stylesheet" href="TransferBank.css">
+</head>
+<body>
+  <h2>Metode Pembayaran: Transfer Bank</h2>
+
+  <form action="suksesTfBank.html" method="get">
+    <fieldset>
+      <legend>Informasi Bank Tujuan</legend>
+      <p><strong>Nama Bank:</strong> Bank Mandiri</p>
+      <p><strong>Nomor Rekening:</strong> 1234567890</p>
+      <p><strong>Atas Nama:</strong> PT Contoh Online</p>
+    </fieldset>
+
+    <fieldset>
+      <legend>Informasi Pengirim</legend>
+      <label for="nama">Nama Pengirim:</label><br>
+      <input type="text" id="nama" name="nama_pengirim" required><br><br>
+
+      <label for="bank">Bank Pengirim:</label><br>
+      <input type="text" id="bank" name="bank_pengirim" required><br><br>
+
+      <label for="norek">Nomor Rekening Pengirim:</label><br>
+      <input type="text" id="norek" name="norek_pengirim" required><br><br>
+
+      <label for="jumlah">Jumlah Transfer (Rp):</label><br>
+      <input type="number" id="jumlah" name="jumlah_transfer" required><br><br>
+
+      <label for="bukti">Upload Bukti Transfer:</label><br>
+      <input type="file" id="bukti" name="bukti_transfer" accept="image/*" required><br><br>
+    </fieldset>
+
+    <button type="submit">Kirim Konfirmasi</button>
+  </form>
+</body>
+</html>

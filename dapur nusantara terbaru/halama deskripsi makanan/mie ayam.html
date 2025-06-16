@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nasi Padang</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+  <div class="header">
+    <button class="back-button" onclick="history.back()">&#8592;</button>
+    <input class="search-box" type="text" placeholder="🔍 cari makanan...">
+  </div>
+
+  <div class="container">
+    <div class="image-section">
+      <img class="main-image" src="/img/mie ayam.jpg" alt="sate">
+      <div class="thumbnail">
+        <img src="/img/mie ayam.jpg" alt="Thumbnail">
+        <img src="/img/mie ayam.jpg" alt="Thumbnail">
+        <img src="/img/mie ayam.jpg" alt="Thumbnail">
+        <img src="/img/mie ayam.jpg" alt="Thumbnail">
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h2>mie ayam</h2>
+      <p>⭐ 4.9 | 2 ulasan</p>
+      <p>📍 3 km dari lokasi anda sekarang</p>
+      <p class="price">Rp. 10.000</p>
+      <p class="alamat"><strong>Alamat:</strong> Jl. Raya Ujung, Pamekasan 69319, Kota Bangkalan, Jawa Timur (63252)</p>
+
+
+
+      <div class="jumlah">
+        <strong>Jumlah:</strong>
+        <input type="number" id="jumlah" min="1" value="1">
+      </div>
+    </div>
+  </div>
+ <!-- Tombol Beli -->
+<button class="beli-btn" onclick="prosesCheckout()">Beli</button>
+
+<script>
+  function prosesCheckout() {
+    const jumlahInput = document.getElementById("jumlah");
+    if (!jumlahInput) {
+      alert("Elemen jumlah tidak ditemukan!");
+      return;
+    }
+
+    const jumlah = jumlahInput.value;
+    const item = {
+      nama: "Mie Ayam",
+      harga: 10000,
+      gambar: "/img/mie ayam.jpg",
+      jumlah: parseInt(jumlah, 10)
+    };
+
+    localStorage.setItem("checkoutItem", JSON.stringify(item));
+    window.location.href = "/chekout/cekout.html";
+  }
+</script>
+
+
+
+  
+
+</body>
+</html>

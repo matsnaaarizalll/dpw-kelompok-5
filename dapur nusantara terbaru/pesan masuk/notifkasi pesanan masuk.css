@@ -1,0 +1,88 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa; /* Latar belakang abu-abu sangat muda */
+  }
+
+  /* Header biru */
+  .header {
+    background-color: #1700c5;
+    color: white;
+    padding: 16px;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Tombol Kembali */
+  .back-link {
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+    margin-right: 12px;
+    cursor: pointer;
+  }
+
+  /* Container notifikasi */
+  .notif-wrapper {
+    padding: 12px;
+  }
+
+  /* Kotak Notifikasi (Diperbarui) */
+  .notif {
+    display: flex;
+    align-items: center; /* Mengubah align-items agar lebih center */
+    background-color: white;
+    padding: 16px; /* Sedikit menambah padding */
+    border: 1px solid #eef; /* Border lebih halus */
+    border-radius: 8px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06); /* Shadow halus */
+  }
+
+  /* Gambar Notifikasi (Diperbarui) */
+  .notif img {
+    width: 60px; /* Sedikit dikecilkan agar proporsional */
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%; /* Membuat gambar menjadi bulat */
+    margin-right: 16px; /* Jarak ke teks */
+    background-color: #eee;
+  }
+
+  .notif-content {
+    flex: 1;
+  }
+
+  /* Judul (Diperbarui) */
+  .notif-content .judul {
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 5px; /* Sedikit menambah jarak */
+    color: #333;
+  }
+
+  /* Subjudul (Diperbarui - Sesuai Gambar) */
+  .notif-content .subjudul {
+    font-size: 13px;
+    color: #0066cc; /* Biru */
+    text-decoration: underline; /* Garis bawah */
+    margin-bottom: 5px; /* Sedikit menambah jarak */
+    cursor: pointer; /* Menandakan bisa diklik */
+  }
+
+  /* Deskripsi (Diperbarui) */
+  .notif-content .deskripsi {
+    font-size: 13px;
+    color: #555; /* Sedikit lebih terang */
+  }
+
+  /* Hapus style status lama jika tidak dipakai */
+  .status-proses,
+  .status-kirim,
+  .status-selesai,
+  .status-batal {
+      color: inherit; /* Hapus warna spesifik jika subjudul sudah biru */
+      font-weight: normal; /* Hapus bold jika tidak ingin */
+  }

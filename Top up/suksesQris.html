@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Up QRIS Sukses</title>
+    <link rel="stylesheet" href="suksesQris.css">
+</head>
+<body>
+    <div class="container">
+        <div class="success-icon">🎉</div>
+        <h1>Top Up Melalui QRIS Berhasil!</h1>
+        <p>Pembayaran QRIS Anda telah berhasil dan saldo telah ditambahkan ke akun.</p>
+        <p>Terima kasih telah menggunakan layanan kami.</p>
+        <a href="topup.html" class="button">Kembali ke Halaman Utama</a>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const params = new URLSearchParams(window.location.search);
+        const jumlahBayar = parseFloat(params.get('jumlah_bayar')); // Matches name in Qris.html form
+
+        if (!isNaN(jumlahBayar) && jumlahBayar > 0) {
+          let totalSaldo = parseFloat(localStorage.getItem('totalSaldo')) || 0;
+          totalSaldo += jumlahBayar;
+          localStorage.setItem('totalSaldo', totalSaldo.toString());
+        } else {
+          console.error('Jumlah bayar tidak valid atau tidak ditemukan pada URL.');
+        }
+      });
+    </script>
+</body>
+</html>

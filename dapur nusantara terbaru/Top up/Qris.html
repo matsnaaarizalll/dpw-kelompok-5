@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Metode Pembayaran - QRIS</title>
+  <link rel="stylesheet" href="Qris.css">
+</head>
+<body>
+
+  <div class="container">
+    <h2>Metode Pembayaran: QRIS</h2>
+
+    <fieldset>
+      <legend>Scan QR Code</legend>
+      <p>Silakan scan QR code di bawah ini menggunakan aplikasi E-Wallet Anda:</p>
+      <div class="qris-box">
+        <img src="/img/qr.png" alt="QRIS QR Code" class="qris-img">
+      </div>
+      <p><strong>Atas Nama:</strong> PT Contoh Digital</p>
+    </fieldset>
+
+    <form action="suksesQris.html" method="get" enctype="multipart/form-data">
+      <fieldset>
+        <legend>Konfirmasi Pembayaran</legend>
+
+        <label for="nama">Nama Pengirim:</label><br>
+        <input type="text" id="nama" name="nama_pengirim" required><br><br>
+
+        <label for="ewallet">E-Wallet yang Digunakan:</label><br>
+        <select id="ewallet" name="jenis_ewallet" required>
+          <option value="">-- Pilih E-Wallet --</option>
+          <option value="Dana">Dana</option>
+          <option value="OVO">OVO</option>
+          <option value="GoPay">GoPay</option>
+        </select><br><br>
+
+        <label for="jumlah">Jumlah yang Dibayar (Rp):</label><br>
+        <input type="number" id="jumlah" name="jumlah_bayar" required><br><br>
+
+        <label for="bukti">Upload Bukti Pembayaran:</label><br>
+        <input type="file" id="bukti" name="bukti_pembayaran" accept="image/*" required><br><br>
+      </fieldset>
+
+      <button type="submit">Kirim Konfirmasi</button>
+    </form>
+  </div>
+
+</body>
+</html>

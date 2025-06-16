@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profil Saya</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 40px;
+    }
+
+    .container {
+      background-color: #fff;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 30px 40px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      overflow: auto;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+      font-size: 24px;
+    }
+
+    .description {
+      color: #555;
+      margin-bottom: 30px;
+    }
+
+    .profile-image {
+      float: right;
+      text-align: center;
+    }
+
+    .profile-image img {
+      width: 100px;
+      height: 100px;
+      background-color: #000;
+      border-radius: 50%;
+      object-fit: cover;
+      aspect-ratio: 1 / 1;
+      margin-bottom: 10px;
+    }
+
+    .profile-image input[type="file"] {
+      display: block;
+      margin: 10px auto;
+    }
+
+    .note {
+      font-size: 0.9em;
+      color: #777;
+      margin-top: 5px;
+    }
+
+    form {
+      max-width: 600px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      clear: both;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 8px 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    input[readonly] {
+      background-color: #f1f1f1;
+      cursor: not-allowed;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 20px;
+      margin-top: 8px;
+    }
+
+    .radio-group label {
+      font-weight: normal;
+    }
+
+    button[type="submit"] {
+      padding: 10px 20px;
+      background-color: #170a88;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #1707a0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Profil Saya</h2>
+    <p class="description">Kelola informasi profil Anda untuk mengontrol, melindungi dan mengamankan akun</p>
+
+    <div class="profile-image">
+      <img src="#" alt="Foto Profil">
+      <br>
+      <input type="file" accept=".jpeg, .jpg, .png">
+      <p class="note">Ukuran gambar: maks. 1 MB<br>Format gambar: .JPEG, .PNG</p>
+    </div>
+
+    <form id="profileForm">
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" value="aditt2450" name="username">
+      </div>
+
+      <div class="form-group">
+        <label>Nama</label>
+        <input type="text" name="nama" placeholder="Masukkan Nama Anda">
+      </div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <input type="text" name="email" placeholder="Masukkan Email Anda">
+      </div>
+
+      <div class="form-group">
+        <label>Nomor Telepon</label>
+        <input type="text" name="telepon" placeholder="Masukkan Nomor Anda">
+      </div>
+
+      <div class="form-group">
+        <label>Jenis Kelamin</label>
+        <div class="radio-group">
+          <label><input type="radio" name="gender" value="Laki-laki"> Laki-laki</label>
+          <label><input type="radio" name="gender" value="Perempuan"> Perempuan</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Tanggal Lahir</label>
+        <input type="text" value="**/**/2006" name="tglLahir" readonly>
+        <p class="note">Kamu sudah melakukan verifikasi sehingga tidak dapat mengubah tanggal lahir.</p>
+      </div>
+
+      <button type="submit">Simpan</button>
+    </form>
+  </div>
+
+  <script>
+    // Preview gambar profil
+    const fileInput = document.querySelector('.profile-image input[type="file"]');
+    const profileImage = document.querySelector('.profile-image img');
+
+    fileInput.addEventListener('change', function () {
+      const file = this.files[0];
+      if (file) {
+        if (file.size > 1024 * 1024) {
+          alert('Ukuran gambar melebihi 1 MB. Silakan pilih gambar yang lebih kecil.');
+          this.value = "";
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          profileImage.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Tangani submit form
+    const form = document.getElementById('profileForm');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // Ambil semua data dari input
+      const formData = new FormData(form);
+      const data = {};
+      formData.forEach((value, key) => {
+        data[key] = value;
+      });
+
+      console.log("Data profil yang disimpan:", data);
+      alert("Profil berhasil disimpan!");
+    });
+  </script>
+</body>
+</html>

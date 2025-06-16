@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Page</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <div class="navbar">
+      <div class="menu-icon">Dapur Nusantara</div>
+    </div>
+  </header>
+
+  <div class="login-container">
+    <h2>Login</h2>
+    <form onsubmit="return validateLogin(event)">
+      <label for="username">Username or Email</label>
+      <input type="text" id="username" placeholder="Enter Username or Email" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Enter Password" required>
+
+      <div class="login-options">
+        <select id="role">
+          <option value="user">Login sebagai Pengguna</option>
+          <option value="admin">Login sebagai Admin</option>
+        </select>
+        <a href="/lupa password/lupa pasword.html" class="forgot-password">Lupa Password</a>
+      </div>
+
+      <div class="buttons">
+        <button type="submit" class="login-btn">Login</button>
+        <button type="button" class="register-btn">Register</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function validateLogin(event) {
+    event.preventDefault();
+
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    const role = document.getElementById("role").value;
+
+    if (username === "Tierza" && password === "12345" && role === "admin") {
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("userRole", "admin");
+      window.location.href = "../dashbord admin/index.html";
+    } else if (
+      username === localStorage.getItem("registeredEmail") &&
+      password === localStorage.getItem("registeredPassword") &&
+      role === "user"
+    ) {
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("userRole", "user");
+      window.location.href = "../halaman utama/index.html";
+    } else {
+      alert("Username atau password salah!");
+    }
+  }
+
+
+    function goToRegister() {
+      window.location.href = "../belum punya akun/registrasi.html";
+    }
+
+    // Tambahkan event listener agar tombol Register bisa berfungsi
+    document.querySelector(".register-btn").addEventListener("click", goToRegister);
+  </script>
+
+</body>
+</html>

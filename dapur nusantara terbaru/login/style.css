@@ -1,0 +1,113 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #c2c2c2;
+}
+header {
+  background-color: #1a00c2;
+  color: white;
+  padding: 15px 0;
+  text-align: center;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-icon {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+
+.right-icons span {
+  margin-left: 20px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.login-container {
+  background: white;
+  width: 90%;
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 30px 20px;
+  border-radius: 30px;
+  border: #333;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-container h2 {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.login-container label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: #dcdcdc;
+  border-radius: 8px;
+}
+
+.login-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.login-options select {
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.forgot-password {
+  font-size: 0.9em;
+  text-decoration: none;
+  color: #333;
+}
+
+.buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.login-btn,
+.register-btn {
+  flex: 1;
+  padding: 10px;
+  margin: 0 5px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.login-btn {
+  background-color: #1a00c2;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.register-btn {
+  background-color: #dcdcdc;
+  color: black;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}

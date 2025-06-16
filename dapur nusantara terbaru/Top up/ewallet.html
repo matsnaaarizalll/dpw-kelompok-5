@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Metode Pembayaran E-Wallet</title>
+  <link rel="stylesheet" href="ewallet.css">
+</head>
+<body>
+
+  <div class="container">
+    <h2>Metode Pembayaran: E-Wallet</h2>
+
+    <form action="suksesEwallet.html" method="get">
+      <fieldset>
+        <legend>Informasi E-Wallet Tujuan</legend>
+        <p><strong>Nama E-Wallet:</strong> Dana</p>
+        <p><strong>Nomor Tujuan:</strong> 0812-3456-7890</p>
+        <p><strong>Atas Nama:</strong> PT Contoh Digital</p>
+      </fieldset>
+
+      <fieldset>
+        <legend>Informasi Pengirim</legend>
+        <label for="nama">Nama Pengirim:</label><br>
+        <input type="text" id="nama" name="nama_pengirim" required><br><br>
+
+        <label for="ewallet">Jenis E-Wallet:</label><br>
+        <select id="ewallet" name="jenis_ewallet" required>
+          <option value="">-- Pilih E-Wallet --</option>
+          <option value="Dana">Dana</option>
+          <option value="OVO">OVO</option>
+          <option value="GoPay">GoPay</option>
+        </select><br><br>
+
+        <label for="nomor">Nomor E-Wallet Anda:</label><br>
+        <input type="text" id="nomor" name="nomor_pengirim" required><br><br>
+
+        <label for="jumlah">Jumlah Transfer (Rp):</label><br>
+        <input type="number" id="jumlah" name="jumlah_transfer" required><br><br>
+
+        <label for="bukti">Upload Bukti Transfer:</label><br>
+        <input type="file" id="bukti" name="bukti_transfer" accept="image/*" required><br><br>
+      </fieldset>
+
+      <button type="submit">Kirim Konfirmasi</button>
+    </form>
+  </div>
+
+</body>
+</html>

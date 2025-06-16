@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Checkout</title>
+  <link rel="stylesheet" href="makanan-style.css" />
+  
+</head>
+<body>
+  <header class="header" style="background-color: blue;">
+    <span class="back-icon" onclick="history.back()">←</span>
+    <h2>Checkout</h2>
+  </header>
+
+  <div class="product-card">
+    <img src="/img/nasi padang.jpg" alt="" />
+    <div class="product-info">
+      <p class="product-title"></p>
+      <p class="product-variant"></p>
+      <p class="product-price"><span class="qty"></span></p>
+    </div>
+  </div>
+
+  <div class="section">
+    <p class="section-title">Opsi Pengiriman</p>
+    <div class="shipping-option">
+      <div>
+        <p class="courier">Go Food</p>
+        <p class="eta">Diterima dalam 30 menit</p>
+      </div>
+      <p class="shipping-price">Rp5.000</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <p class="section-title">Pesan:</p>
+    <input type="text" placeholder="Silakan tinggalkan pesan..." />
+  </div>
+
+  <div class="section total">
+    <p>Total Pesanan (1 Produk):</p>
+    <p class="highlight"></p>
+  </div>
+
+<div class="section">
+  <p class="section-title">Metode Pembayaran</p>
+  <p class="choose-payment" onclick="togglePaymentOptions()">Pilih Metode Pembayaran &gt;</p>
+
+  <div id="payment-options" class="payment-options">
+    <label><input type="radio" name="payment" value="Transfer Bank" id="walletOption">Dompet saya</label><br>
+    <label><input type="radio" name="payment" value="E-Wallet"> E-Wallet (OVO, DANA, GoPay)</label><br>
+    <label><input type="radio" name="payment" value="COD"> Bayar di Tempat (COD)</label>
+  </div>
+</div>
+
+
+  <div class="section breakdown">
+    <div class="row">
+      <span>Subtotal untuk Produk</span>
+      <span></span>
+    </div>
+    <div class="row">
+      <span>Subtotal Pengiriman</span>
+      <span>Rp5.000</span>
+    </div>
+    <div class="row total-pay">
+      <strong>Total Pembayaran</strong>
+      <strong></strong>
+    </div>
+  </div>
+
+  <footer class="footer" style="border-color: blue;">
+    <button type="submit" class="order-btn" style="background-color: blue;" id="btnCheckout">
+      Pesan Sekarang
+    </button>
+  </footer>
+  <script src="script.js"></script>
+
+</body>
+</html>

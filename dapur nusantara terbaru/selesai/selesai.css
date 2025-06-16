@@ -1,0 +1,53 @@
+body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fdfdfd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .status-box {
+      background-color: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      border-top: 6px solid #1100ff;
+      max-width: 400px;
+    }
+
+    .status-box h1 {
+      font-size: 24px;
+      color: #1100ff;
+      margin-bottom: 10px;
+    }
+
+    .status-box p {
+      font-size: 18px;
+      color: #333;
+    }
+
+    .status-box .icon {
+      font-size: 50px;
+      margin-bottom: 20px;
+      color: #1100ff;
+    }
+    .beli-btn {
+      flex: 1;
+      padding: 10px;
+      margin: 0 5px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .status-box button {
+      background-color: #1a00c2;
+      color: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    

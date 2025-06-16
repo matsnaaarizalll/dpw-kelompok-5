@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Metode Pembayaran</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #d9d9d9;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header {
+      background-color: #0000cc;
+      color: white;
+      padding: 20px;
+      position: relative;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .back-button {
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .container {
+      background-color: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 30px auto;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+
+    select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 2px solid #0099ff;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .payment-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 10px;
+      background-color: #f9f9f9;
+    }
+
+    .payment-option img {
+      width: 40px;
+      height: 40px;
+      border-radius: 6px;
+      margin-right: 10px;
+    }
+
+    .payment-label {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      font-weight: 500;
+    }
+
+    input[type="checkbox"] {
+      transform: scale(1.2);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <button class="back-button" onclick="history.back()">←</button>
+    methode pembayaran
+  </div>
+
+  <div class="container">
+    <select>
+      <option>Transfer Bank</option>
+      <option>Dompet Digital</option>
+    </select>
+
+    <div class="payment-option">
+      <div class="payment-label">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Nasi_Padang.JPG/640px-Nasi_Padang.JPG" alt="BRI">
+        Bank BRI
+      </div>
+      <input type="checkbox">
+    </div>
+
+    <div class="payment-option">
+      <div class="payment-label">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Nasi_Padang.JPG/640px-Nasi_Padang.JPG" alt="BCA">
+        Bank BCA
+      </div>
+      <input type="checkbox">
+    </div>
+
+    <div class="payment-option">
+      <div class="payment-label">
+        Dompet Saya
+      </div>
+      <input type="checkbox">
+    </div>
+  </div>
+
+</body>
+</html>

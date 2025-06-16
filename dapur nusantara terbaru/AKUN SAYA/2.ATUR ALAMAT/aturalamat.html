@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alamat Saya</title>
+  <link rel="stylesheet" href="aturalamat.css">
+</head>
+<body>
+
+    <span class="back-icon" onclick="history.back()">←</span>
+ 
+
+  <div class="modal" id="popupForm">
+    <div class="modal-content">
+      <h2>Alamat Baru</h2>
+
+      <div class="form-row">
+        <input type="text" placeholder="Nama Lengkap">
+        <input type="text" placeholder="Nomor Telepon">
+      </div>
+
+      <select>
+        <option disabled selected>Provinsi, Kota, Kecamatan, Kode Pos</option>
+      </select>
+
+      <input type="text" placeholder="Nama Jalan, Gedung, No. Rumah">
+      <input type="text" placeholder="Detail Lainnya (Cth: Blok / Unit No., Patokan)">
+
+      <div class="map-box">
+        <button class="map-btn">+ Tambah Lokasi</button>
+      </div>
+
+      <label class="section-label">Tandai Sebagai:</label>
+      <div class="tag-buttons">
+        <button>Rumah</button>
+        <button>Kantor</button>
+      </div>
+
+      <div class="checkbox-area">
+        <input type="checkbox" id="alamatPribadi">
+        <label for="alamatPribadi">Atur sebagai Alamat Pribadi</label>
+      </div>
+
+      <div class="form-actions">
+        <button id="cancelBtn">Nanti Saja</button>
+        <button class="ok-btn">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="header">
+      <h2>Alamat Saya</h2>
+      <button class="btn-tambah" id="openModal">+ Tambah Alamat Baru</button>
+    </div>
+
+    <h3>Alamat</h3>
+    <div id="alamat-container">
+      <div class="alamat utama">
+        <p><strong>Leni Ratmi</strong> (+62) 856 4839 6739</p>
+        <p>Ds Sumberbendo Dsn Sumberbendo, Jalan Kelud, RT.1/RW.3, Sumberbendo, Pare<br>
+        PARE, KAB. KEDIRI, JAWA TIMUR, ID, 64228</p>
+        <span class="label-utama">Utama</span>
+        <p>
+          <a href="#" class="ubah">Ubah</a>
+          <a href="" class="hapus">Hapus</a>
+          <button class="atur-utama">Atur sebagai utama</button>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script src="aturalamat.js"></script>
+</body>
+</html>

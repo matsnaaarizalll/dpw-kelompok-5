@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Status Pesanan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Animasi untuk pin kurir */
+    @keyframes pulse {
+      0% {
+        transform: scale(0.9);
+        opacity: 0.7;
+      }
+      50% {
+        transform: scale(1.1);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(0.9);
+        opacity: 0.7;
+      }
+    }
+
+    .pulsing-pin {
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+
+    /* Animasi garis pergerakan pada peta */
+    .animated-line {
+      stroke-dasharray: 1000; /* Panjang total garis */
+      stroke-dashoffset: 1000; /* Awalnya tersembunyi */
+      animation: dash 5s linear infinite; /* Animasi berulang */
+    }
+
+    @keyframes dash {
+      from {
+        stroke-dashoffset: 1000;
+      }
+      to {
+        stroke-dashoffset: 0; /* Garis bergerak dari awal sampai akhir */
+      }
+    }
+
+    /* Gaya tambahan untuk kartu kurir */
+    .courier-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background-color: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="max-w-5xl mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-6 text-center">Daftar Pesanan Anda</h1>
+
+    <div class="flex flex-wrap gap-2 justify-center mb-6">
+      <button onclick="showTab('belumBayar')" class="tab-btn bg-blue-200 hover:bg-gray-300 px-4 py-2 rounded">Belum Bayar</button>
+      <button onclick="showTab('dikirim')" class="tab-btn bg-blue-200 hover:bg-gray-300 px-4 py-2 rounded">Dikirim</button>
+      <button onclick="showTab('selesai')" class="tab-btn bg-blue-200 hover:bg-gray-300 px-4 py-2 rounded">Selesai</button>
+      <button onclick="showTab('dibatalkan')" class="tab-btn bg-blue-200 hover:bg-gray-300 px-4 py-2 rounded">Dibatalkan</button>
+    </div>
+
+    <div id="belumBayar" class="tab-content hidden">
+      <h2 class="text-xl font-semibold mb-4">Belum Bayar</h2>
+      <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
+        <div class="bg-white p-4 rounded shadow">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+              <span class="bg-blue-500 text-white text-xs px-2 py-0.5 rounded mr-2">Star</span>
+              <p class="font-bold text-lg">Dapur Nusantara </p>
+            </div>
+            <p class="text-sm text-black-500 font-semibold">Belum Bayar</p>
+          </div>
+
+          <div class="flex items-start mb-4">
+            <img src="/img/sate.jpg" alt="Sate Ayam Khas Madura " class="rounded mr-4 w-24 h-24 object-cover">
+            <div class="flex-grow">
+              <p class="font-semibold text-black-800">sate ayam khas madura asli</p>
+              <p class="text-sm text-gray-600">pedas </p>
+              <p class="text-right text-sm text-black-600 mt-2">x1</p>
+            </div>
+          </div>
+
+          <div class="text-right mb-4">
+            <p class="text-gray-500 line-through">Rp18.000</p>
+            <p class="font-bold text-xl text-black-600">Rp15.000</p>
+          </div>
+
+          <div class="text-right mb-6">
+            <p class="text-lg font-semibold">Total 1 porsi: <span class="text-black-600">Rp15.000</span></p>
+          </div>
+
+          <div class="bg-blue-100 border-l-4 border-black-500 text-black-700 p-3 mb-6 flex items-center justify-between" role="alert">
+            <div>
+              Bayar dalam <span id="countdown" class="font-bold text-xl">00:59:31</span> dengan Dana 
+            </div>
+            <svg class="w-5 h-5 ml-auto text-blue-700" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+          </div>
+
+          <div class="flex justify-end gap-3">
+            <button class="bg-gray-200 text-gray-800 px-5 py-2 rounded-lg hover:bg-gray-300 font-semibold">Ubah Pembayaran</button>
+            <button class="bg-blue-500 text-white px-5 py-2 rounded-lg hover:bg-gray-600 font-semibold">Bayar</button>
+          </div>
+        </div>
+
+        </div>
+    </div>
+
+    <div id="dikirim" class="tab-content hidden">
+      <h2 class="text-xl font-semibold mb-4">Dikirim</h2>
+      <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
+
+        <div class="courier-card">
+            <img src="WhatsApp Image 2025-05-26 at 21.13.47 (1).jpeg" alt="Foto Kurir" class="rounded-full w-16 h-16 object-cover">
+            <div>
+                <p class="font-bold text-lg">Tierza Brilian Taszahudin</p>
+                <p class="text-sm text-gray-600">wmimt - Nopol : AE 4252 OF</p>
+                <p class="text-sm text-gray-800 font-semibold mt-1">Estimasi Tiba: 20 menit lagi</p>
+            </div>
+            <button class="ml-auto bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 text-sm">Hubungi Kurir</button>
+        </div>
+
+        <div class="bg-white p-4 rounded shadow mb-4 relative overflow-hidden">
+          <h3 class="text-lg font-semibold mb-2">Kurir Menuju Lokasi Anda</h3>
+          <img src="https://via.placeholder.com/800x400?text=Navigasi+Kurir+Menuju+Anda" alt="Peta Navigasi" class="rounded mb-4 w-full h-auto object-cover">
+          
+          <div id="courier-pin" class="absolute pulsing-pin" style="top: 30%; left: 20%; transform: translate(-50%, -50%);">
+            <svg class="w-8 h-8 text-red-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="absolute -bottom-2 -right-4 bg-white text-xs px-2 py-0.5 rounded shadow">Kurir</span>
+          </div>
+          <div class="absolute" style="top: 70%; left: 80%; transform: translate(-50%, -50%);">
+            <svg class="w-8 h-8 text-blue-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="absolute -bottom-2 -left-4 bg-white text-xs px-2 py-0.5 rounded shadow">Anda</span>
+          </div>
+          <svg class="absolute top-0 left-0 w-full h-full" viewBox="0 0 800 400">
+            <path id="animated-route" d="M 160 120 L 640 280" stroke="blue" stroke-width="3" fill="none" class="animated-line"/>
+            </svg>
+
+          <button onclick="openGoogleMaps()" class="absolute bottom-4 right-4 bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-sm">Lihat Peta Lengkap</button>
+        </div>
+
+        <div class="bg-white p-4 rounded shadow mb-4">
+          <h3 class="text-lg font-semibold mb-2">Status Pengiriman</h3>
+          <div class="flex justify-between items-center text-sm mb-4">
+            <span class="text-green-600 font-semibold">Sedang Dikirim</span>
+            <span class="text-blue-600 font-bold">Menuju Alamatmu</span>
+            <span class="text-gray-400 font-semibold">Pesanan Tiba</span>
+          </div>
+          <p class="text-gray-600">Pesanan diperkirakan tiba Hari Ini, dalam 20 menit.</p>
+        </div>
+
+        <div class="bg-white p-4 rounded shadow">
+          <div class="flex justify-between items-center mb-2">
+            <div>
+              <p class="font-bold">kode pengiriman </p>
+              <p class="text-sm text-gray-600">dprns123456789 <span class="cursor-pointer" onclick="copyToClipboard('SPXID050894132574')">📋</span></p>
+            </div>
+            <button class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Rincian Pesanan</button>
+          </div>
+
+          <div class="relative pl-6">
+            <div class="absolute left-2 top-0 bottom-0 w-0.5 bg-gray-300"></div>
+
+            <div class="mb-4 relative">
+              <div class="absolute left-0 -ml-2 w-4 h-4 bg-blue-500 rounded-full border-2 border-white"></div>
+              <p class="text-xs text-gray-500" id="current-delivery-time">Hari Ini, HH:MM</p>
+              <p class="font-semibold text-blue-700">Kurir sedang dalam perjalanan menuju alamat Anda.</p>
+              <p class="text-sm">Diperkirakan tiba dalam 20 menit.</p>
+            </div>
+
+            <div class="mb-4 relative">
+              <div class="absolute left-0 -ml-2 w-4 h-4 bg-gray-400 rounded-full border-2 border-white"></div>
+              <p class="text-xs text-gray-500">Hari Ini, 10:00</p>
+              <p class="font-semibold">Kurir telah ditugaskan.</p>
+            </div>
+
+            <div class="mb-4 relative">
+              <div class="absolute left-0 -ml-2 w-4 h-4 bg-gray-400 rounded-full border-2 border-white"></div>
+              <p class="text-xs text-gray-500">Hari Ini, 08:30</p>
+              <p class="font-semibold">Pesanan sedang diproses ke tempat pembeli</p>
+            </div>
+
+            <div class="mb-4 relative">
+              <div class="absolute left-0 -ml-2 w-4 h-4 bg-gray-400 rounded-full border-2 border-white"></div>
+              <p class="text-xs text-gray-500">Kemarin, 20:00</p>
+              <p class="font-semibold">Pesanan tiba di lokasi</p>
+            </div>
+
+            <div class="mb-4 relative">
+              <div class="absolute left-0 -ml-2 w-4 h-4 bg-gray-400 rounded-full border-2 border-white"></div>
+              <p class="text-xs text-gray-500">Kemarin, 16:00</p>
+              <p class="font-semibold">jl.raya ujung.pamekasan kota bangkalan</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="selesai" class="tab-content hidden">
+      <h2 class="text-xl font-semibold mb-4">Selesai</h2>
+      <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
+        <div class="bg-white p-4 rounded shadow">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+              <span class="bg-blue-500 text-white text-xs px-2 py-0.5 rounded mr-2">Star+</span>
+              <p class="font-bold text-lg">dapur nusantara</p>
+            </div>
+            <p class="text-sm text-gray-500">Selesai</p>
+          </div>
+
+          <div class="flex items-start mb-4">
+            <img src="/img/sate.jpg" alt="Sate ayam Khas Madura " class="rounded mr-4 w-24 h-24 object-cover">
+            <div class="flex-grow">
+              <p class="font-semibold text-gray-800">Sate Ayam Khas Madura </p>
+              <p class="text-sm text-gray-600">pedas</p>
+              <p class="text-right text-sm text-gray-600 mt-2">x1</p>
+            </div>
+          </div>
+
+          <div class="text-right mb-4">
+            <p class="text-gray-500 line-through">Rp18.000</p>
+            <p class="font-bold text-xl text-black-600">Rp15.000</p>
+          </div>
+
+          <div class="text-right mb-6">
+            <p class="text-lg font-semibold">Total 1 porsi: <span class="text-black-600">Rp15.000</span></p>
+          </div>
+
+            </div>
+            <svg class="w-5 h-5 ml-auto text-yellow-700" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+          </div>
+
+          <div class="flex justify-end gap-3">
+            <button class="bg-black-200 text-white-800 px-5 py-2 rounded-lg hover:bg-gray-300 font-semibold">Beli Lagi</button>
+            <button class="bg-blue-500 text-white px-5 py-2 rounded-lg hover:bg-gray-600 font-semibold">Nilai</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="dibatalkan" class="tab-content hidden">
+      <h2 class="text-xl font-semibold mb-4">Dibatalkan</h2>
+      <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
+        <div class="bg-white p-4 rounded shadow">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+              <img src="/img/nasi padang.jpeg" alt="Warung Makan Imut " class="rounded-full w-6 h-6 mr-2">
+              <p class="font-bold text-lg">dapur nusantara</p>
+            </div>
+            <p class="text-sm text-red-500 font-semibold">Dibatalkan</p>
+          </div>
+
+          <div class="flex items-start mb-4">
+            <img src="/img/nasi padang.jpeg" alt="nasi Padang khas padang" class="rounded mr-4 w-24 h-24 object-cover">
+            <div class="flex-grow">
+              <p class="font-semibold text-gray-800">nasi padang khas Padang </p>
+              <p class="text-sm text-gray-600">rasakan kenikmatan khas padang </p>
+              <p class="text-right text-sm text-gray-600 mt-2">x1</p>
+            </div>
+          </div>
+
+          <div class="text-right mb-4">
+            <p class="text-gray-500 line-through">Rp15.000</p>
+            <p class="font-bold text-lg text-blue-600">Rp10.000</p>
+          </div>
+
+          <div class="text-right mb-6">
+            <p class="text-base font-semibold">Total 1 porsi: <span class="text-blue-600">Rp10.000</span></p>
+          </div>
+
+          <div class="flex justify-end gap-3">
+            <button class="bg-gray-200 text-gray-800 px-5 py-2 rounded-lg hover:bg-blue-300 font-semibold">Rincian Pembatalan</button>
+            <button class="bg-blue-500 text-white px-5 py-2 rounded-lg hover:bg-gray-600 font-semibold">Beli Lagi</button>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 rounded shadow mt-4">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+              <img src="/img/nasi goreng.jpg" alt="Nasi Goreng khas jawaa" class="rounded-full w-6 h-6 mr-2">
+              <p class="font-bold text-lg">Dapur sederhana</p>
+            </div>
+            <p class="text-sm text-blue-500 font-semibold">Dibatalkan</p>
+          </div>
+
+          <div class="flex items-start mb-4">
+            <img src="/img/nasi goreng.jpg" alt="nasi Goreng" class="rounded mr-4 w-24 h-24 object-cover">
+            <div class="flex-grow">
+              <p class="font-semibold text-gray-800">Nasi Goreng </p>
+              <p class="text-sm text-gray-600">pedas</p>
+              <p class="text-right text-sm text-gray-600 mt-2">x1</p>
+            </div>
+          </div>
+
+          <div class="text-right mb-4">
+            <p class="text-gray-500 line-through">Rp15.000</p>
+            <p class="font-bold text-lg text-blue-600">Rp10.000 </p>
+          </div>
+
+          <div class="text-right mb-6">
+            <p class="text-base font-semibold">Total 1 produk: <span class="text-blue-600">Rp10.000</span></p>
+          </div>
+
+          <div class="flex justify-end gap-3">
+            <button class="bg-gray-200 text-gray-800 px-5 py-2 rounded-lg hover:bg-blue-300 font-semibold">Rincian Pembatalan</button>
+            <button class="bg-blue-500 text-white px-5 py-2 rounded-lg hover:bg-gray-600 font-semibold">Beli Lagi</button>
+          </div>
+        </div>
+
+        <h3 class="text-xl font-semibold mb-4 mt-6">Kamu Mungkin Juga makanan ini </h3>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-white p-2 rounded shadow">
+            <div class="relative mb-2">
+              <img src="/img/ayam geprek.jpg" alt="Nasi Ayam geprek" class="w-full h-auto rounded">
+              <span class="absolute top-1 left-1 bg-blue-500 text-white text-xs px-2 py-0.5 rounded-full">Skytim</span>
+              <span class="absolute top-1 right-1 bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">-65%</span>
+            </div>
+            <p class="font-semibold text-sm">Nasi Ayam geprek </p>
+            <p class="text-xs text-gray-600">Ayam geprek</p>
+          </div>
+          <div class="bg-white p-2 rounded shadow">
+            <div class="relative mb-2">
+              <img src="img/mie ayam.jpg" alt="" class="w-full h-auto rounded">
+            </div>
+            <p class="font-semibold text-sm">rasakan makanan khas nusantara</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showTab(id) {
+      const contents = document.querySelectorAll('.tab-content');
+      contents.forEach(c => c.classList.add('hidden'));
+      document.getElementById(id).classList.remove('hidden');
+    }
+
+    // Fungsi untuk menyalin teks ke clipboard
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Nomor resi disalin: ' + text);
+      }).catch(err => {
+        console.error('Gagal menyalin teks: ', err);
+      });
+    }
+
+    // Fungsi untuk memperbarui waktu di riwayat pelacakan "Hari Ini"
+    function updateCurrentTime() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const currentTimeElement = document.getElementById('current-delivery-time');
+      if (currentTimeElement) {
+        currentTimeElement.textContent = `Hari Ini, ${hours}:${minutes}`;
+      }
+    }
+
+    // Fungsi untuk menghitung mundur waktu pembayaran
+    function startCountdown() {
+      const countdownElement = document.getElementById('countdown');
+      if (!countdownElement) return;
+
+      // Waktu target: 1 jam dari sekarang (contoh)
+      let timeLeft = 60 * 60; // 1 jam dalam detik
+
+      const countdownInterval = setInterval(() => {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+
+        const formattedTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        countdownElement.textContent = `00:${formattedTime}`;
+
+        if (timeLeft <= 0) {
+          clearInterval(countdownInterval);
+          countdownElement.textContent = 'Waktu Pembayaran Habis';
+          // Anda bisa menambahkan logika lain di sini, misalnya menonaktifkan tombol bayar
+        } else {
+          timeLeft--;
+        }
+      }, 1000); // Update setiap 1 detik
+    }
+
+
+    // Fungsi untuk membuka Google Maps dengan rute simulasi
+    function openGoogleMaps() {
+      // Koordinat simulasi (misal: dari titik kurir ke titik Anda)
+      const courierLat = -6.2088; // Contoh koordinat Jakarta
+      const courierLng = 106.8456;
+      const userLat = -7.2575; // Contoh koordinat Surabaya
+      const userLng = 112.7522;
+
+      // URL Google Maps Directions
+      const mapsUrl = `https://www.google.com/maps/dir/${courierLat},${courierLng}/${userLat},${userLng}`;
+      window.open(mapsUrl, '_blank');
+    }
+
+    // Fungsi untuk mensimulasikan pergerakan kurir pada peta
+    function animateCourierOnMap() {
+        const courierPin = document.getElementById('courier-pin');
+        if (!courierPin) return;
+
+        // Mendefinisikan jalur pergerakan (top, left)
+        const path = [
+            { top: '30%', left: '20%' }, // Posisi awal
+            { top: '40%', left: '35%' },
+            { top: '55%', left: '50%' },
+            { top: '65%', left: '65%' },
+            { top: '70%', left: '80%' }  // Posisi akhir (dekat dengan tujuan Anda)
+        ];
+        let step = 0;
+
+        setInterval(() => {
+            step = (step + 1) % path.length;
+            courierPin.style.transition = 'top 3s linear, left 3s linear'; // Animasi pergerakan
+            courierPin.style.top = path[step].top;
+            courierPin.style.left = path[step].left;
+        }, 3000); // Ganti posisi setiap 3 detik
+    }
+
+
+    // Tampilkan tab 'belumBayar' secara default saat halaman dimuat
+    document.addEventListener('DOMContentLoaded', () => {
+      showTab('belumBayar'); // Menampilkan tab 'belumBayar' sebagai default
+      updateCurrentTime(); // Memperbarui waktu saat ini di tab dikirim (jika diakses)
+      setInterval(updateCurrentTime, 60000); // Perbarui setiap menit
+      startCountdown(); // Memulai hitung mundur untuk tab belumBayar
+      animateCourierOnMap(); // Memulai animasi kurir (jika tab dikirim diakses)
+    });
+  </script>
+</body>
+</html>

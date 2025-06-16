@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Keranjang Saya</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+    .cart-container {
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+    }
+    .item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+    }
+    .item input[type="checkbox"] {
+      margin-right: 10px;
+      transform: scale(1.3);
+      margin-top: 20px;
+    }
+    .item img {
+      width: 80px;
+      border-radius: 10px;
+      margin-right: 10px;
+    }
+    .details {
+      flex-grow: 1;
+    }
+    .price {
+      color: #e53935;
+      font-weight: bold;
+    }
+    .delete-btn {
+      background: none;
+      border: none;
+      color: red;
+      font-size: 20px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+    .total {
+      text-align: right;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+    .checkout {
+      width: 100%;
+      background: #2f00ff;
+      color: #fff;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .checkout:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+
+  <header style="background: #2f00ff; color: white; padding: 10px 20px; border-radius: 10px; margin-bottom: 20px;">
+    <a href="/halaman utama/index.html" style="color: white; text-decoration: none; font-weight: bold;">&larr; Kembali ke Halaman Awal</a>
+  </header>
+
+  <div class="cart-container">
+    <h2>Keranjang Saya</h2>
+    <div id="cart-items"></div>
+    <div class="total">Total: <span id="total-price">Rp0</span></div>
+    <button id="checkout-btn" class="checkout" disabled>Checkout</button>
+  </div>
+
+  <script>
+    function formatRupiah(angka) {
+      return 'Rp' + angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+
+    const cartItemsEl = document.getElementById('cart-items');
+    const totalPriceEl = document.getElementById('total-price');
+    const checkoutBtn = document.getElementById('checkout-btn');
+
+    let keranjang = JSON.parse(localStorage.getItem('keranjang')) || [];
+
+    function renderCart() {
+      cartItemsEl.innerHTML = '';
+      keranjang.forEach((item, index) => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'item';
+        itemDiv.innerHTML = `
+          <input type="checkbox" class="item-checkbox" data-price="${item.harga}">
+          <img src="${item.gambar}" alt="${item.nama}">
+          <div class="details">
+            <p><strong>${item.nama}</strong></p>
+            <p class="price">${formatRupiah(item.harga)}</p>
+          </div>
+          <button class="delete-btn" onclick="hapusItem(${index})">🗑️</button>
+        `;
+        cartItemsEl.appendChild(itemDiv);
+      });
+
+      setTimeout(() => {
+        const checkboxes = document.querySelectorAll('.item-checkbox');
+        checkboxes.forEach(cb => cb.addEventListener('change', updateTotal));
+        updateTotal();
+      }, 50);
+    }
+
+    function updateTotal() {
+      const checkboxes = document.querySelectorAll('.item-checkbox');
+      let total = 0;
+      let count = 0;
+
+      checkboxes.forEach(cb => {
+        if (cb.checked) {
+          total += parseInt(cb.dataset.price);
+          count++;
+        }
+      });
+
+      totalPriceEl.textContent = formatRupiah(total);
+      checkoutBtn.disabled = count === 0;
+      checkoutBtn.textContent = count === 0 ? 'Checkout' : `Checkout (${count})`;
+    }
+
+    function hapusItem(index) {
+      if (confirm('Yakin ingin menghapus item ini dari keranjang?')) {
+        keranjang.splice(index, 1);
+        localStorage.setItem('keranjang', JSON.stringify(keranjang));
+        renderCart();
+      }
+    }
+
+    checkoutBtn.addEventListener('click', () => {
+      const selectedItems = [];
+      const checkboxes = document.querySelectorAll('.item-checkbox');
+
+      checkboxes.forEach((cb, i) => {
+        if (cb.checked) {
+          const itemDiv = cb.closest('.item');
+          const nama = itemDiv.querySelector('strong').textContent;
+          const harga = parseInt(cb.dataset.price);
+          const gambar = itemDiv.querySelector('img').src;
+
+          selectedItems.push({ nama, harga, gambar });
+        }
+      });
+
+      if (selectedItems.length > 0) {
+        localStorage.setItem('pesanan', JSON.stringify(selectedItems));
+        window.location.href = '../chekout 2/cekout 2.html';
+      }
+    });
+
+    // Tampilkan keranjang saat halaman dimuat
+    renderCart();
+  </script>
+
+</body>
+</html>
